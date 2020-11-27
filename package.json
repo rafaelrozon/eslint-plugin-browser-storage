@@ -1,11 +1,13 @@
 {
   "name": "eslint-plugin-browser-storage",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Restricts the use of browser storage to certain files",
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin"
+    "eslint-plugin",
+    "sessionStorage",
+    "best-practices"
   ],
   "author": "Rafael Rozon",
   "main": "lib/index.js",

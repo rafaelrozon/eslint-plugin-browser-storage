@@ -1,36 +1,47 @@
 # Limit sessionStorage usage to specific files (limit-session-storage)
-
-Please describe the origin of the rule here.
-
-
 ## Rule Details
 
-This rule aims to...
+Make sure that the browser sessionStorage is only accessed from a list of specific files.
+
+The following examples assume this rule is setup as:
+```
+    //...
+    "limit-session-storage", 
+    [
+        ["session_storage_manager.js"],
+        "Use SessionStorageManager instead."
+    ]
+```
 
 Examples of **incorrect** code for this rule:
 
 ```js
 
-// fill me in
-
+// filename: login.js
+sessionStorage.setItem("key", "someData")
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-
-// fill me in
-
+// filename: session_storage_manager.js
+sessionStorage.setItem("key", "someData")
 ```
 
 ### Options
 
-If there are any options, describe them here. Otherwise, delete this section.
+The rule takes an array which first element is an array of strings for the filenames that are allowed to access the sessionStorage.
+The second element in the options array is a string for the error message.
+For example:
+
+```json
+[
+    ["session_storage_manager.js"],
+    "Use SessionStorageManager instead."
+]
+```
+Only in the session_storage_manager.js file the sessionStorage can be used. And if an error is reported by this rule, it will be "Use SessionStorageManager instead."
 
 ## When Not To Use It
 
-Give a short description of when it would be appropriate to turn off this rule.
-
-## Further Reading
-
-If there are other links that describe the issue this rule addresses, please include them here in a bulleted list.
+When sessionStorage can be used anywhere.

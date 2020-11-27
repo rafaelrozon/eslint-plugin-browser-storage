@@ -1,6 +1,6 @@
 # eslint-plugin-browser-storage
 
-Restricts the use of browser storage to certain files
+Restricts the use of browser storage to certain files.
 
 ## Installation
 
@@ -35,16 +35,11 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
     "rules": {
-        "browser-storage/rule-name": 2
+        "browser-storage/limit-session-storage": ["error", [["storageManager.js"], "Use StorageManager instead of directly accessing the sessionStorage"]]
     }
 }
 ```
 
 ## Supported Rules
 
-* Fill in provided rules here
-
-
-
-
-
+[Limit Session Storage](docs/rules/limit-session-storage.md)

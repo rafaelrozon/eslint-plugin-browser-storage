@@ -1,37 +1,44 @@
-/**
- * @fileoverview Limit sessionStorage usage to specific files
- * @author Rafael Rozon
- */
 "use strict";
+const rule = require("../../../lib/rules/limit-session-storage");
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
+const RuleTester = require("eslint").RuleTester;
 
-var rule = require("../../../lib/rules/limit-session-storage"),
+const ruleTester = new RuleTester();
 
-    RuleTester = require("eslint").RuleTester;
-
-
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
-
-var ruleTester = new RuleTester();
 ruleTester.run("limit-session-storage", rule, {
+  valid: [
+    {
+      code: `sessionStorage.set("item", "123")`,
+      options: [["storageManager.js"], "Use storageManager"],
+      filename: "storageManager.js",
+      errors: [],
+    },
+  ],
 
-    valid: [
-
-        // give me some code that won't trigger a warning
-    ],
-
-    invalid: [
+  invalid: [
+    // single file allowed
+    {
+      code: `sessionStorage.set("item", "123")`,
+      options: [["storageManager.js"], "Use storageManager"],
+      filename: "CartPage.tsx",
+      errors: [
         {
-            code: "",
-            errors: [{
-                message: "Fill me in.",
-                type: "Me too"
-            }]
-        }
-    ]
+          message: "Use storageManager",
+          type: "ExpressionStatement",
+        },
+      ],
+    },
+    // multiple files allowed
+    {
+      code: `sessionStorage.set("item", "123")`,
+      options: [["storageManager.js", "login.js"], "Use storageManager"],
+      filename: "CartPage.tsx",
+      errors: [
+        {
+          message: "Use storageManager",
+          type: "ExpressionStatement",
+        },
+      ],
+    },
+  ],
 });
